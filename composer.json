@@ -1,0 +1,30 @@
+{
+  "name": "cancherinikaiky/made-by-me",
+  "description": "Estrutura básica de uma aplicação MVC",
+  "minimum-stability": "dev",
+  "authors": [
+    {
+      "name": "Kaiky Cancherini",
+      "email": "kaikyfillipo@gmail.com",
+      "homepage": "https://www.ifsul.edu.br",
+      "role": "Developer"
+    }
+  ],
+  "config": {
+    "vendor-dir": "vendor"
+  },
+  "autoload": {
+    "psr-4": {
+      "Source\\": "source/"
+    },
+    "files": [
+      "source/Boot/Config.php",
+      "source/Boot/Helpers.php"
+    ]
+  },
+  "require": {
+    "dompdf/dompdf": "^2.0",
+    "coffeecode/router": "1.0.8",
+    "league/plates": "v3.4.0"
+  }
+}
