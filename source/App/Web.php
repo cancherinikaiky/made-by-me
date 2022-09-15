@@ -24,7 +24,7 @@ class Web
     {
         echo $this->view->render(
             "about",
-            ["name" => "Fábio", "age" => 46]
+            ["username" => "Fábio", "age" => 46]
         );
 
     }
@@ -65,7 +65,7 @@ class Web
 
             $user = new User(
                 null,
-                $data["name"],
+                $data["username"],
                 $data["email"],
                 $data["password"]
             );
@@ -79,7 +79,7 @@ class Web
                 return;
             } else {
                 $json = [
-                    "name" => $data["name"],
+                    "username" => $data["username"],
                     "message" => $user->getMessage(),
                     "type" => "success"
                 ];
@@ -128,7 +128,7 @@ class Web
             }
 
             $json = [
-                "name" => $user->getName(),
+                "username" => $user->getUsername(),
                 "email" => $user->getEmail(),
                 "message" => $user->getMessage(),
                 "type" => "success"
