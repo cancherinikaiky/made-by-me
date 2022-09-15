@@ -2,9 +2,13 @@
   $this->layout("_theme");
 ?>
 
+<?php $this->start("css"); ?>
+    <link rel="stylesheet" href="<?= url("assets/web/") ?>css/login.css">
+<?php $this->end(); ?>
+
 <div class="wrapper">
     <header>
-      <img class="logo" src="../assets/madebyme-logo.png" alt="Logo da loja MadebyMe, composto de duas folhas em verde médio e escuro.">
+      <img class="logo" src="<?= url("assets/web/") ?>img/madebyme-logo.png" alt="Logo da loja MadebyMe, composto de duas folhas em verde médio e escuro.">
     </header>
 
     <main>
@@ -17,7 +21,7 @@
 
         <div class="insert">
           <label for="password">Senha:</label>
-          <input type="text" name="password" id="password" required>
+          <input type="password" name="password" id="password" required>
         </div>
 
         <button class="submit" type="submit">Login</button>
@@ -30,7 +34,7 @@
         Não possui conta?<br>
         <a href="<?= url("cadastrar"); ?>">Cadastre-se</a>
       </span>
-
+      <br>
       <div id="message">
 
       </div>
@@ -64,33 +68,29 @@
   </div>
 
   <script type="text/javascript" async>
-    const formUser = document.querySelector('#loginUserForm');
-    const resMessage = document.querySelector('#message');
+      const form = document.querySelector("#loginUserForm");
+      const message = document.querySelector("#message");
+      form.addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const dataUser = new FormData(form);
+          const data = await fetch("<?= url("login"); ?>",{
+              method: "POST",
+              body: dataUser,
+          });
+          const user = await data.json();
+          console.log(user);
+          if(user) {
+              if(user.message === "message"){
+                  message.innerHTML = user.message + ` Olá, ${user.username}!`;
+              } else {
+                  message.innerHTML = user.message;
+              }
+              message.classList.add("message");
+              message.classList.remove("success", "warning", "error");
+              message.classList.add(`${user.type}`);
+          }
 
-    const showMessage = (res) => {
-        if(res.message === "message"){
-            resMessage.innerHTML = res.message + ` Olá, ${res.name}!`;
-        } else {
-            resMessage.innerHTML = res.message;
-        }
-        resMessage.classList.add("message");
-        resMessage.classList.remove("success", "warning", "error");
-        resMessage.classList.add(`${res.type}`);
-    }
-
-    formUser.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const dataUser = new FormData(formUser);
-        await fetch("<?= url("login"); ?>", {
-            method: "POST",
-            body: dataUser,
-        }).then((res) => {
-            console.log(res.json());
-            if (res) {
-                showMessage(res);
-            }
-        }).catch((error) => {
-            console.error(error);
-        });
-    });
+          document.querySelector("#email").value = "";
+          document.querySelector("#password").value = "";
+      });
   </script>

@@ -7,9 +7,11 @@
 
   <title>MadebyMe</title>
 
-  <script src="https://unpkg.com/scrollreveal"></script>
-
-  <link rel="stylesheet" href="<?= url("assets/web/"); ?>css/signin.css">
+  <?php
+    if ($this->section("css")) {
+        echo $this->section("css");
+    }
+  ?>
   <link rel="shortcut icon" href="<?= url("assets/web/"); ?>img/favicon.ico" type="image/x-icon">
 </head>
 <body>
