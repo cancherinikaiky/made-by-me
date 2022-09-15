@@ -7,10 +7,9 @@ use Source\Core\Connect;
 class User
 {
     private $id;
-    private $name;
+    private $username;
     private $email;
     private $password;
-    private $document;
     private $message;
 
     /**
@@ -41,17 +40,17 @@ class User
     /**
      * @return string|null
      */
-    public function getName(): ?string
+    public function getUsername(): ?string
     {
-        return $this->name;
+        return $this->username;
     }
 
     /**
-     * @param string|null $name
+     * @param string|null $username
      */
-    public function setName(?string $name): void
+    public function setUsername(?string $username): void
     {
-        $this->name = $name;
+        $this->username = $username;
     }
 
     /**
@@ -86,35 +85,17 @@ class User
         $this->password = $password;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getDocument(): ?string
-    {
-        return $this->document;
-    }
-
-    /**
-     * @param string|null $document
-     */
-    public function setDocument(?string $document): void
-    {
-        $this->document = $document;
-    }
-
     public function __construct(
         int $id = NULL,
-        string $name = NULL,
+        string $username = NULL,
         string $email = NULL,
-        string $password = NULL,
-        string $document= NULL
+        string $password = NULL
     )
     {
         $this->id = $id;
-        $this->name = $name;
+        $this->username = $username;
         $this->email = $email;
         $this->password = $password;
-        $this->document = $document;
     }
 
     /**
@@ -147,7 +128,7 @@ class User
             return false;
         } else {
             $user = $stmt->fetch();
-            $this->name = $user->name;
+            $this->username = $user->username;
             $this->email = $user->email;
             return true;
         }
@@ -193,7 +174,7 @@ class User
             }
         }
 
-        $this->name = $user->name;
+        $this->username = $user->username;
         $this->email = $user->email;
         $this->message = "Usuário Autorizado, redirect to APP!";
 
@@ -205,9 +186,9 @@ class User
      */
     public function insert() : bool
     {
-        $query = "INSERT INTO users (name, email, password) VALUES (:name, :email, :password)";
+        $query = "INSERT INTO users (username, email, password) VALUES (:username, :email, :password)";
         $stmt = Connect::getInstance()->prepare($query);
-        $stmt->bindParam(":name", $this->name);
+        $stmt->bindParam(":username", $this->username);
         $stmt->bindParam(":email", $this->email);
         $stmt->bindValue(":password", password_hash($this->password,PASSWORD_DEFAULT));
         $stmt->execute();
