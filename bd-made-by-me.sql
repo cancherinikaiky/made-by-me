@@ -13,14 +13,15 @@ CREATE TABLE `users` (
     UNIQUE KEY `email_UNIQUE` (`email`)
 ) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8;
 
-DROP TABLE IF EXISTS `projects`;
-CREATE TABLE `projects` (
+DROP TABLE IF EXISTS `items`;
+CREATE TABLE `items` (
     `id` int(11) NOT NULL AUTO_INCREMENT,
     `title` varchar(255) NOT NULL,
     `price` varchar(255) NOT NULL,
-    `description` varchar(255) NOT NULL,
     `category` varchar(255) NOT NULL,
+    `description` varchar(255) NOT NULL,
+    `image` varchar(255) NOT NULL,
     `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
     `updated_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp(),
-    PRIMARY KEY (`id`),
+    PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
