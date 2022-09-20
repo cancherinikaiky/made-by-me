@@ -1,0 +1,207 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap');
+
+:root {
+    font-size: 62.5%;
+
+    --color-hover-green: #005b35;
+    --color-main-green: #007444;
+    --color-medium-green: #7ac382;
+    --color-light-green: #c1e6c5;
+
+    --color-main-gray: #1c2024;
+    --color-medium-gray: #32373d;
+    --color-light-gray: #f5f5f5;
+
+    --color-main-white: #ffffff;
+    --color-main-transparent: rgba(0, 0, 0, 0);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'DM Sans', sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-size: 1.6rem;
+    text-align: center;
+
+    background-color: var(--color-main-white);
+}
+
+ul,
+li {
+    list-style: none;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+    color: var(--color-main-green);
+}
+
+.wrapper {
+    width: min(50rem, 100%);
+    margin-inline: auto;
+    padding-inline: 2.5rem;
+}
+
+header {
+    margin-bottom: 4.3rem;
+}
+
+.logo {
+    margin-top: 3.3rem;
+    width: 100%;
+}
+
+.logo .wrapper {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 1.8rem;
+}
+
+.logo img {
+    width: 4.8rem;
+}
+
+.logo h1 {
+    color: var(--color-main-green);
+
+    font-size: 1.8rem;
+}
+
+.logo span {
+    color: var(--color-hover-green);
+}
+
+.info {
+    margin-bottom: 4rem;
+    padding-inline: 1rem;
+
+    display: flex;
+    justify-content: space-between;
+}
+
+.info span {
+    color: var(--color-medium-gray);
+
+    font-size: 1.6rem;
+    font-weight: 500;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 1rem;
+}
+
+#itemRegisterForm .insert {
+    margin-bottom: 2rem;
+}
+
+.insert {
+    width: 100%;
+}
+
+.insert label {
+    display: block;
+
+    margin-bottom: 1rem;
+    margin-left: 1.5rem;
+
+    color: var(--color-medium-gray);
+    text-align: left;
+    font-weight: 500;
+    font-size: 1.6rem;
+}
+
+.insert input {
+    outline-color: var(--color-main-white);
+
+    border: none;
+    border-radius: 1rem;
+
+    width: 100%;
+    height: 3.5rem;
+
+    padding: 2rem;
+
+    color: var(--color-medium-gray);
+    font-weight: 400;
+    font-size: 1.4rem;
+
+    background-color: var(--color-light-gray);
+}
+
+.insert input:focus {
+    outline-color: var(--color-main-green);
+}
+
+.insert input:valid {
+    background-color: var(--color-main-white);
+}
+
+.insert #description {
+    height: 10.5rem;
+}
+
+.insert:nth-child(2) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+}
+
+#itemRegisterForm .submit {
+    width: 100%;
+
+    cursor: pointer;
+
+    margin-top: 0.5rem;
+    padding-block: 1.2rem;
+
+    border: none;
+    background-color: var(--color-main-green);
+    border-radius: 1rem;
+
+    color: var(--color-main-white);
+    font-weight: 400;
+    font-size: 1.8rem;
+
+    transition: background-color 0.2s ease-in-out;
+}
+
+#itemRegisterForm .submit:hover {
+    color: var(--color-main-white);
+    background-color: var(--color-main-green);
+}
+
+.menu {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3.5rem;
+
+    position: fixed;
+    width: 100%;
+
+    background-color: var(--color-light-gray);
+
+    border-radius: 2rem 2rem 0 0;
+
+    padding-block: 1.7rem;
+
+    bottom: 0;
+}
+
+.menu svg {
+    cursor: pointer;
+    text-decoration: none;
+}
