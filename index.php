@@ -27,6 +27,9 @@ $route->post("/cadastrar","Web:register");
 $route->get("/login","Web:login");
 $route->post("/login","Web:login");
 
+$route->get("/criar", "Web:criar");
+$route->post("/criar", "Web:criar");
+
 /**
  * App Routs
  */
