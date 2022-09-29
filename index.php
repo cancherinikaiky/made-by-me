@@ -30,6 +30,9 @@ $route->post("/login","Web:login");
 $route->get("/criar", "Web:criar");
 $route->post("/criar", "Web:criar");
 
+$route->get('/faq', 'Web:faq');
+$route->post('/faq', 'Web:faq');
+
 /**
  * App Routs
  */
