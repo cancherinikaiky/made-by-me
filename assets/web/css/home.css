@@ -234,5 +234,6 @@ footer {
 @media (min-width: 1110px) {
     .cards-contain {
         overflow-x: initial;
+        flex-wrap: wrap;
     }
 }
