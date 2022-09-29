@@ -29,6 +29,10 @@
       </form>
     </main>
 
+    <div id="message" style="margin-bottom: 2rem; color: var(--color-main-green); font-size: 1.4rem; font-weight: 500">
+
+    </div>
+
     <aside class="info">
       <span class="checked">
         Não possui conta?<br>

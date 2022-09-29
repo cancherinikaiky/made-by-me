@@ -37,7 +37,9 @@
     <button class="submit" type="submit">Cadastrar</button>
 
   </form>
-  <div id="message"></div>
+  <div id="message" style="margin-bottom: 2rem; color: var(--color-main-green); font-size: 1.4rem; font-weight: 500">
+
+  </div>
 </main>
 
 <aside class="info">
@@ -61,6 +63,13 @@
         });
         const user = await data.json();
         console.log(user);
+
+        if(user) {
+            message.innerHTML = user.message;
+            message.classList.remove("success", "warning", "error");
+            message.classList.add("message");
+            message.classList.add(`${user.type}`);
+        }
 
         document.querySelector("#username").value = "";
         document.querySelector("#email").value = "";
