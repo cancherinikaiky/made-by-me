@@ -3,6 +3,7 @@
 namespace Source\App;
 
 use League\Plates\Engine;
+use Source\Models\Faq;
 use Source\Models\Item;
 use Source\Models\User;
 
@@ -16,18 +17,25 @@ class Web
         //$this->view = new Engine(__DIR__ . "/../../themes/web",'php');
     }
 
-    public function home() : void
-    {
-        echo $this->view->render("home",["eventName" => CONF_SITE_NAME]);
-    }
-
     public function about() : void
     {
         echo $this->view->render(
             "about",
-            ["username" => "Fábio", "age" => 46]
+            ["username" => "Kaiky", "age" => 17]
         );
 
+    }
+
+    public function home() : void
+    {
+        $item = new Item();
+        $items = $item->selectAll();
+
+        echo $this->view->render("home",
+            [
+                "items" => $items
+            ]
+        );
     }
 
     public function register(?array $data) : void
@@ -185,6 +193,18 @@ class Web
     {
         var_dump($data);
         echo $this->view->render("contact");
+    }
+
+    public function faq()
+    {
+        $faq = new Faq();
+        $faqs = $faq->selectAll();
+
+        echo $this->view->render("faq",
+            [
+                "faqs" => $faqs
+            ]
+        );
     }
 
     public function error(array $data) : void
