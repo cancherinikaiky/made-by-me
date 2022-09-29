@@ -48,6 +48,18 @@ class Item
         return true;
     }
 
+    public function selectAll() {
+        $query = "SELECT * FROM items";
+        $stmt = Connect::getInstance()->prepare($query);
+        $stmt->execute();
+
+        if($stmt->rowCount() == 0){
+            return false;
+        }
+        return $stmt->fetchAll();
+    }
+
+
     /**
      * @return int|null
      */
