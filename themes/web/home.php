@@ -6,6 +6,10 @@
     <link rel="stylesheet" href="<?= url("assets/web/") ?>css/home.css">
 <?php $this->end(); ?>
 
+<?php $this->start("title"); ?>
+    <title>Confira todos os itens e produtos do nosso catálogo</title>
+<?php $this->end(); ?>
+
 <nav class="logo">
   <header class="wrapper">
     <img src="<?= url("assets/web/") ?>img/madebyme-logo.png" alt="" />

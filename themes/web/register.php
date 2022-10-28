@@ -6,6 +6,10 @@
     <link rel="stylesheet" href="<?= url("assets/web/") ?>css/register.css">
 <?php $this->end(); ?>
 
+<?php $this->start("title"); ?>
+    <title>Ainda não possui uma conta? Cadastre-se!</title>
+<?php $this->end(); ?>
+
 <div class="wrapper">
 <header>
   <img class="logo" src="<?= url("assets/web/") ?>img/madebyme-logo.png" alt="Logo da loja MadebyMe, composto de duas folhas em verde médio e escuro.">

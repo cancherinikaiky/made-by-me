@@ -6,6 +6,9 @@
     <link rel="stylesheet" href="<?= url("assets/web/") ?>css/create-item.css">
 <?php $this->end(); ?>
 
+<?php $this->start("title"); ?>
+    <title>Cadastre seu item!</title>
+<?php $this->end(); ?>
 
 <div class="wrapper">
     <nav class="logo">
