@@ -11,6 +11,25 @@ class User
     private $email;
     private $password;
     private $message;
+    private $photo;
+
+  /**
+   * @return mixed
+   */
+  public function getPhoto()
+  {
+    return $this->photo;
+  }
+
+  /**
+   * @param mixed $photo
+   */
+  public function setPhoto($photo): void
+  {
+    $this->photo = $photo;
+  }
+
+
 
     /**
      * @return mixed
@@ -178,6 +197,14 @@ class User
         $this->email = $user->email;
         $this->message = "Usuário Autorizado, redirect to APP!";
 
+        $arrayUser = [
+          "username" => $this->username,
+          "email" => $this->email,
+        ];
+
+        $_SESSION["user"] = $arrayUser;
+        setcookie("user","Logado",time()+60*60,"/");
+
         return true;
     }
 
@@ -194,6 +221,29 @@ class User
         $stmt->execute();
         $this->message = "Usuário cadastrado com sucesso!";
         return true;
+    }
+
+    public function update() {
+      $query = "UPDATE users SET username = :username, email = :email, password = :password,photo = :photo WHERE id = :id";
+      $stmt = Connect::getInstance()->prepare($query);
+      $stmt->bindParam(":username",$this->username);
+      $stmt->bindParam(":email",$this->email);
+      $stmt->bindParam(":password",$this->password);
+      $stmt->bindParam(":photo",$this->photo);
+      $stmt->bindParam(":id",$this->id);
+      $stmt->execute();
+
+      $arrayUser = [
+        "id" => $this->id,
+        "username" => $this->username,
+        "email" => $this->email,
+        "password" => $this->password,
+        "photo" => $this->photo
+      ];
+
+
+      $_SESSION["user"] = $arrayUser;
+      $this->message = "Usuário alterado com sucesso!";
     }
 
 }
