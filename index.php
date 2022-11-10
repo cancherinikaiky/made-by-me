@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 ob_start();
 
 require __DIR__ . "/vendor/autoload.php";
@@ -27,9 +27,6 @@ $route->post("/cadastrar","Web:register");
 $route->get("/login","Web:login");
 $route->post("/login","Web:login");
 
-$route->get("/criar", "Web:criar");
-$route->post("/criar", "Web:criar");
-
 $route->get('/faq', 'Web:faq');
 $route->post('/faq', 'Web:faq');
 
@@ -38,14 +35,12 @@ $route->post('/faq', 'Web:faq');
  */
 
 $route->group("/app"); // agrupa em /app
-$route->get("/","App:home");
-$route->get("/listar","App:list");
-$route->get("/pdf","App:createPDF");
-$route->group(null); // desagrupo do /app
+$route->get("/sair","App:logout");
 
-$route->group("/admin"); // agrupa em /admin
-$route->get("/","Adm:home");
-$route->group(null); // desagrupo do /admin
+$route->get("/criar", "App:criar");
+$route->post("/criar", "App:criar");
+
+$route->group(null); // desagrupo do /app
 
 /*
  * Erros Routes
