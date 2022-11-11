@@ -21,9 +21,25 @@ class App
     $this->view = new Engine(CONF_VIEW_APP,'php');
   }
 
-  public function home () : void
+  public function home() : void
   {
-    echo $this->view->render("home");
+    $item = new Item();
+    $items = $item->selectAll();
+
+    echo $this->view->render("home",
+      [
+        "items" => $items
+      ]
+    );
+  }
+
+  public function profile(array $data) : void
+  {
+    echo $this->view->render("profile",
+      [
+        "user" => $_SESSION["user"]
+      ]);
+
   }
 
   public function list () : void
@@ -79,5 +95,56 @@ class App
     header("Location:http://www.localhost/made-by-me/login");
   }
 
+  public function profileUpdate(array $data) : void
+  {
+    echo json_encode($data);
+
+    if(!empty($data)){
+      $data = filter_var_array($data,FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+      if(in_array("",$data)){
+        $json = [
+          "message" => "Informe Username e Email...",
+          "type" => "alert-danger"
+        ];
+        echo json_encode($json);
+        return;
+      }
+      if(!is_email($data["email"])){
+        $json = [
+          "message" => "Informe um e-mail válido...",
+          "type" => "alert-danger"
+        ];
+        echo json_encode($json);
+        return;
+      }
+      // se a imagem for alterada, manda a do formulário $_FILES
+      if(!empty($_FILES['photo']['tmp_name'])) {
+        $upload = uploadImage($_FILES['photo']);
+        unlink($_SESSION["user"]["photo"]);
+      } else {
+        // se não houve alteração da imagem, manda a imagem que está na sessão
+        $upload = $_SESSION["user"]["photo"];
+      }
+
+      $user = new User(
+        $_SESSION["user"]["id"],
+        $data["username"],
+        $data["email"],
+        null,
+        $upload
+      );
+
+      $user->update();
+
+      $json = [
+        "message" => $user->getMessage(),
+        "type" => "alert-success",
+        "name" => $user->getUsername(),
+        "email" => $user->getEmail(),
+        "photo" => url($user->getPhoto())
+      ];
+      echo json_encode($json);
+    }
+  }
 }
 
