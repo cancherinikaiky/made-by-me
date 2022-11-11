@@ -104,18 +104,20 @@ class User
         $this->password = $password;
     }
 
-    public function __construct(
-        int $id = NULL,
-        string $username = NULL,
-        string $email = NULL,
-        string $password = NULL
-    )
-    {
-        $this->id = $id;
-        $this->username = $username;
-        $this->email = $email;
-        $this->password = $password;
-    }
+  public function __construct(
+    int $id = NULL,
+    string $username = NULL,
+    string $email = NULL,
+    string $password = NULL,
+    string $photo = NULL
+  )
+  {
+    $this->id = $id;
+    $this->username = $username;
+    $this->email = $email;
+    $this->password = $password;
+    $this->photo = $photo;
+  }
 
     /**
      * @return array|false
@@ -193,13 +195,15 @@ class User
             }
         }
 
+        $this->id = $user->id;
         $this->username = $user->username;
         $this->email = $user->email;
-        $this->message = "Usuário Autorizado, redirect to APP!";
+        $this->message = "Usuário logado com sucesso! Seja bem-vindo, " . $this->username . ".";
 
         $arrayUser = [
+          "id" => $this->id,
           "username" => $this->username,
-          "email" => $this->email,
+          "email" => $this->email
         ];
 
         $_SESSION["user"] = $arrayUser;
@@ -224,11 +228,10 @@ class User
     }
 
     public function update() {
-      $query = "UPDATE users SET username = :username, email = :email, password = :password,photo = :photo WHERE id = :id";
+      $query = "UPDATE users SET username = :username, email = :email, photo = :photo WHERE id = :id";
       $stmt = Connect::getInstance()->prepare($query);
       $stmt->bindParam(":username",$this->username);
       $stmt->bindParam(":email",$this->email);
-      $stmt->bindParam(":password",$this->password);
       $stmt->bindParam(":photo",$this->photo);
       $stmt->bindParam(":id",$this->id);
       $stmt->execute();
@@ -237,7 +240,6 @@ class User
         "id" => $this->id,
         "username" => $this->username,
         "email" => $this->email,
-        "password" => $this->password,
         "photo" => $this->photo
       ];
 
