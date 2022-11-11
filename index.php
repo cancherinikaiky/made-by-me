@@ -35,10 +35,17 @@ $route->post('/faq', 'Web:faq');
  */
 
 $route->group("/app"); // agrupa em /app
+$route->get("/", "App:home");
 $route->get("/sair","App:logout");
 
 $route->get("/criar", "App:criar");
 $route->post("/criar", "App:criar");
+
+$route->get("/home", "App:home");
+$route->post("/home", "App:home");
+
+$route->get("/perfil", "App:profile");
+$route->post("/perfil", "App:profileUpdate");
 
 $route->group(null); // desagrupo do /app
 
