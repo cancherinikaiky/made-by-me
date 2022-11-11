@@ -4,8 +4,8 @@ $this->layout("_theme");
 <div class="container">
   <form enctype="multipart/form-data" method="post" id="formProfile">
     <div class="mb-3">
-      <label for="name" class="form-label">Nome: </label>
-      <input type="text" name="name" class="form-control" id="name" value="<?=$user["name"];?>" placeholder="Seu Nome...">
+      <label for="username" class="form-label">Username: </label>
+      <input type="text" name="username" class="form-control" id="username" value="<?=$user["username"];?>" placeholder="Seu username...">
     </div>
     <div class="mb-3">
       <label for="email" class="form-label">Email: </label>
@@ -41,7 +41,7 @@ $this->layout("_theme");
         const dataUser = new FormData(form);
         const data = await fetch("<?= url("app/perfil"); ?>",{
             method: "POST",
-            body: dataUser,
+            body: dataUser
         });
         const user = await data.json();
         if(user) {
