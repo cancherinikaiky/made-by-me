@@ -115,7 +115,7 @@ header .logo {
     outline-color: var(--color-main-green);
 }
 
-.insert input:valid {
+.insert input:valid, .insert input:placeholder-shown {
     background-color: var(--color-main-white);
 }
 

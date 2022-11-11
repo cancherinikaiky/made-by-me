@@ -146,17 +146,31 @@ section header a {
     position: relative;
 
     filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+
+    cursor: pointer;
+
+    transition: all 0.1s linear;
 }
 
 i svg {
     position: absolute;
     top: 1.6rem;
     right: 1.4rem;
+    transition: all 0.2s ease-in-out;
+}
+
+i svg:hover {
+    fill: var(--color-main-white);
+}
+
+.card:hover {
+    filter: drop-shadow(0px 0px 0px transparent);
+    transform: translateY(-2%);
 }
 
 .card img {
     width: 100%;
-    border-radius: 1.5rem;
+    border-radius: 1rem;
 }
 
 .card_button {
