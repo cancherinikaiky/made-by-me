@@ -33,11 +33,6 @@
       <input type="password" name="password" value="" id="password" required>
     </div>
 
-<!--        <div class="insert">-->
-<!--          <label for="passwordConfirm">Confirme senha:</label>-->
-<!--          <input type="password" name="passwordConfirm" value="" id="passwordConfirm" required>-->
-<!--        </div>-->
-
     <button class="submit" type="submit">Cadastrar</button>
 
   </form>
@@ -78,5 +73,7 @@
         document.querySelector("#username").value = "";
         document.querySelector("#email").value = "";
         document.querySelector("#password").value = "";
+
+        window.location.href = "<?= url("login")?>";
     });
 </script>

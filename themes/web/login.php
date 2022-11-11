@@ -100,5 +100,7 @@
 
           document.querySelector("#email").value = "";
           document.querySelector("#password").value = "";
+
+          window.location.href = "<?= url("app/home")?>";
       });
   </script>
