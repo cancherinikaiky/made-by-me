@@ -7,6 +7,7 @@ CREATE TABLE `users` (
     `username` varchar(45) NOT NULL,
     `email` varchar(45) NOT NULL,
     `password` varchar(255) NOT NULL,
+    `photo` varchar(255) DEFAULT NULL,
     `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
     `updated_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp(),
     PRIMARY KEY (`id`),
