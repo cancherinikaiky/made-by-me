@@ -4,8 +4,7 @@ namespace Source\Models;
 
 use Source\Core\Connect;
 
-class Item
-{
+class Item {
     private $id;
     private $title;
     private $price;
@@ -31,12 +30,9 @@ class Item
         $this->image = $image;
     }
 
-    /**
-     * @return bool
-     */
-    public function insert() : bool
-    {
+    public function create(): bool {
         $query = "INSERT INTO items (title, price, category, description, image) VALUES (:title, :price, :category, :description, :image)";
+
         $stmt = Connect::getInstance()->prepare($query);
         $stmt->bindParam(":title", $this->title);
         $stmt->bindParam(":price", $this->price);
@@ -44,131 +40,130 @@ class Item
         $stmt->bindParam(":description", $this->description);
         $stmt->bindParam(":image", $this->image);
         $stmt->execute();
+
         $this->message = "Produto cadastrado com sucesso!";
         return true;
     }
 
-    public function selectAll() {
+    public function findAll() {
         $query = "SELECT * FROM items";
         $stmt = Connect::getInstance()->prepare($query);
         $stmt->execute();
 
         if($stmt->rowCount() == 0){
-            return false;
+            return NULL;
         }
         return $stmt->fetchAll();
     }
 
+    public function findById(string $id): bool {
+        $query = "SELECT * FROM items WHERE id = :id";
+        $stmt = Connect::getInstance()->prepare($query);
+        $stmt->bindParam(":id", $this->id);
+        $stmt->execute();
 
-    /**
-     * @return int|null
-     */
-    public function getId(): ?int
-    {
+        if($stmt->rowCount() == 0){
+            return false;
+        }
+
+        $item = $stmt->fetch();
+        $this->title = $item->title;
+        $this->price = $item->price;
+        $this->category = $item->category;
+        $this->description = $item->description;
+        $this->image = $item->image;
+
+        return true;
+    }
+
+    public function update(): bool {
+        if ($this->findById($this->id)) {
+            $query = "UPDATE items SET title = :title, price = :price, category = :category, description = :description, image = :image WHERE id = :id";
+            $stmt = Connect::getInstance()->prepare($query);
+
+            $stmt->bindParam(":title", $this->title);
+            $stmt->bindParam(":price", $this->price);
+            $stmt->bindParam(":category", $this->category);
+            $stmt->bindParam(":description", $this->description);
+            $stmt->bindParam(":image", $this->image);
+            $stmt->bindParam(":id", $this->id);
+            $stmt->execute();
+
+            $this->message = "Item alterado com sucesso!";
+            return true;
+        }
+        $this->message = "Item não encontrado!";
+        return false;
+    }
+
+    public function delete(): bool {
+        if ($this->findById($this->id)) {
+            $query = "DELETE items WHERE id = :id";
+            $stmt = Connect::getInstance()->prepare($query);
+
+            $stmt->bindParam(":id", $this->id);
+            $stmt->execute();
+
+            $this->message = "Item deletado com sucesso!";
+            return true;
+        }
+        $this->message = "Item não encontrado ou já deletado!";
+        return false;
+    }
+
+    public function getId(): ?int {
         return $this->id;
     }
 
-    /**
-     * @param int|null $id
-     */
-    public function setId(?int $id): void
-    {
+    public function setId(?int $id): void {
         $this->id = $id;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getTitle()
-    {
+    public function getTitle() {
         return $this->title;
     }
 
-    /**
-     * @param mixed $title
-     */
-    public function setTitle($title): void
-    {
+    public function setTitle($title): void {
         $this->title = $title;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getPrice()
-    {
+    public function getPrice() {
         return $this->price;
     }
 
-    /**
-     * @param mixed $price
-     */
-    public function setPrice($price): void
-    {
+    public function setPrice($price): void {
         $this->price = $price;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getCategory()
-    {
+    public function getCategory() {
         return $this->category;
     }
 
-    /**
-     * @param mixed $category
-     */
-    public function setCategory($category): void
-    {
+    public function setCategory($category): void {
         $this->category = $category;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getDescription()
-    {
+    public function getDescription() {
         return $this->description;
     }
 
-    /**
-     * @param mixed $description
-     */
-    public function setDescription($description): void
-    {
+    public function setDescription($description): void {
         $this->description = $description;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getImage()
-    {
+    public function getImage() {
         return $this->image;
     }
 
-    /**
-     * @param mixed $image
-     */
-    public function setImage($image): void
-    {
+    public function setImage($image): void {
         $this->image = $image;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getMessage()
-    {
+    public function getMessage() {
         return $this->message;
     }
 
-    /**
-     * @param mixed $message
-     */
-    public function setMessage($message): void
-    {
+    public function setMessage($message): void {
         $this->message = $message;
     }
 
