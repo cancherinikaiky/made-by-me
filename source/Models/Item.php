@@ -6,39 +6,43 @@ use Source\Core\Connect;
 
 class Item {
     private $id;
+    private $idSeller;
     private $title;
     private $price;
     private $category;
     private $description;
-    private $image;
+    private $images;
     private $message;
 
     public function __construct(
         int $id = NULL,
+        int $idSeller = NULL,
         string $title = NULL,
         string $price = NULL,
         string $category = NULL,
         string $description = NULL,
-        string $image = NULL
+        array $images = NULL,
     )
     {
         $this->id = $id;
+        $this->idSeller = $idSeller;
         $this->title = $title;
         $this->price = $price;
         $this->category = $category;
         $this->description = $description;
-        $this->image = $image;
+        $this->images = $images;
     }
 
     public function create(): bool {
-        $query = "INSERT INTO items (title, price, category, description, image) VALUES (:title, :price, :category, :description, :image)";
-
+        $query = "INSERT INTO items (idSeller, title, price, category, description) VALUES (:idSeller, :title, :price, :category, :description)";
         $stmt = Connect::getInstance()->prepare($query);
+        $stmt->bindParam(":idSeller", $this->idSeller);
         $stmt->bindParam(":title", $this->title);
         $stmt->bindParam(":price", $this->price);
         $stmt->bindParam(":category", $this->category);
         $stmt->bindParam(":description", $this->description);
-        $stmt->bindParam(":image", $this->image);
+
+        $this->setImages($this->images);
         $stmt->execute();
 
         $this->message = "Produto cadastrado com sucesso!";
@@ -67,11 +71,12 @@ class Item {
         }
 
         $item = $stmt->fetch();
+        $this->idSeller = $item->idSeller;
         $this->title = $item->title;
         $this->price = $item->price;
         $this->category = $item->category;
         $this->description = $item->description;
-        $this->image = $item->image;
+        $this->images = $this->getImages();
 
         return true;
     }
@@ -109,6 +114,30 @@ class Item {
         }
         $this->message = "Item não encontrado ou já deletado!";
         return false;
+    }
+
+    public function getImages(): array {
+        $query = "SELECT * FROM itemsphotos WHERE idItem = :idItem";
+        $stmt = Connect::getInstance()->prepare($query);
+        $stmt->bindParam(":idItem", $this->id);
+        $stmt->execute();
+
+        if ($stmt->rowCount() == 0) {
+            return [];
+        }
+        
+        return $stmt->fetchAll();
+    }
+
+    public function setImages(array $images): bool {
+        foreach ($images as $i => $photo) {
+            $query = "INSERT INTO itemsphotos (idItem, photo) VALUES (:idItem, :photo)";
+            $stmt = Connect::getInstance()->prepare($query);
+
+            $stmt->bindParam(":idItem", $this->id);
+            $stmt->bindParam(":photo", $photo);
+            $stmt->execute();
+        }
     }
 
     public function getId(): ?int {
@@ -166,5 +195,4 @@ class Item {
     public function setMessage($message): void {
         $this->message = $message;
     }
-
 }
