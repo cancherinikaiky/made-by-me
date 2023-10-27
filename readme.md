@@ -1,4 +1,4 @@
-# Made by Me - ReadMe
+# Made by Me
 
 ## Visão Geral
 O projeto "Made by Me" é um site de venda de produtos orgânicos, vegetarianos e veganos que apoia a causa ambiental. Foi desenvolvido utilizando PHP e JavaScript puro para criar uma plataforma que conecta produtores sustentáveis com consumidores conscientes.
